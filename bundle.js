@@ -104,7 +104,7 @@ eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../n
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \"body {\\r\\n  min-height: 100vh;\\r\\n}\\r\\n\\r\\n.todo-create {\\r\\n  width: 100%;\\r\\n}\\r\\n\\r\\n.add-task {\\r\\n  color: #fff;\\r\\n  background-color: darkcyan;\\r\\n}\\r\\n\\r\\nbutton, input[type=\\\"submit\\\"] {\\r\\n  outline: none;\\r\\n  border: none;\\r\\n  width: 150px;\\r\\n  height: 40px;\\r\\n  border-radius: 10px;\\r\\n  color: #fff;\\r\\n  background-color: darkmagenta;\\r\\n}\\r\\n\\r\\nform {\\r\\n  display: flex;\\r\\n  flex-flow: column wrap;\\r\\n  width: 50%;\\r\\n  height: 500px;\\r\\n  justify-content: space-around;\\r\\n  margin: auto\\r\\n}\\r\\n\\r\\nform > * {\\r\\n  margin-bottom: 7px;\\r\\n}\\r\\n\\r\\nform input:not(.border) {\\r\\n  display: block;\\r\\n  border-color: none;\\r\\n  outline: none;\\r\\n  border-style: none;\\r\\n  border-bottom: 1px solid gray;\\r\\n}\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack:///./src/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\nexports.push([module.i, \"@import url(https://fonts.googleapis.com/css?family=Poppins&display=swap);\"]);\n// Module\nexports.push([module.i, \"body {\\r\\n  min-height: 100vh;\\r\\n  font-family: 'Poppins', sans-serif;\\r\\n}\\r\\n\\r\\n.mouse-cursor-gradient span {\\r\\n  position: relative;\\r\\n}\\r\\n\\r\\n.mouse-cursor-gradient::before {\\r\\n  --size: 0;\\r\\n  content: '';\\r\\n  position: absolute;\\r\\n  width: var(--size);\\r\\n  height: var(--size);\\r\\n  background: radial-gradient(circle closest-side, rgb(199, 139, 235), transparent);\\r\\n  transform: translate(-50%, -50%);\\r\\n  transition: width 0.2s ease, height 0.3s ease;\\r\\n}\\r\\n\\r\\n.mouse-cursor-gradient:hover::before {\\r\\n  --size: 200px;\\r\\n}\\r\\n\\r\\n.todo-create {\\r\\n  width: 100%;\\r\\n}\\r\\n\\r\\n.mouse-cursor-gradient,\\r\\n input[type=\\\"submit\\\"] {\\r\\n  position: relative;\\r\\n  outline: none;\\r\\n  border: none;\\r\\n  width: 150px;\\r\\n  height: 40px;\\r\\n  border-radius: 15px;\\r\\n  font-size: 1.2em;\\r\\n  color: #fff;\\r\\n  border: 1px solid rgb(241, 57, 72);\\r\\n  box-shadow: 0 2px 0 0 rgba(252, 87, 101, 0.829);\\r\\n  background-color: rgb(241, 36, 53);\\r\\n  cursor: pointer;\\r\\n  color: #fff;\\r\\n  overflow: hidden;\\r\\n}\\r\\n\\r\\n.mouse-cursor-gradient:hover,\\r\\n input[type=\\\"submit\\\"]:hover {\\r\\n  box-shadow: none;\\r\\n  border: 2px solid rgb(241, 57, 72);\\r\\n}\\r\\n\\r\\n.radio {\\r\\n  margin-right: 15px;\\r\\n}\\r\\n\\r\\nform {\\r\\n  display: flex;\\r\\n  flex-flow: column wrap;\\r\\n  width: 50%;\\r\\n  height: 500px;\\r\\n  justify-content: space-around;\\r\\n  margin: auto\\r\\n}\\r\\n\\r\\nform > * {\\r\\n  margin-bottom: 7px;\\r\\n}\\r\\n\\r\\nform input:not(.border) {\\r\\n  display: block;\\r\\n  border-color: none;\\r\\n  outline: none;\\r\\n  border-style: none;\\r\\n  border-bottom: 1px solid gray;\\r\\n}\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack:///./src/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -143,6 +143,18 @@ eval("var api = __webpack_require__(/*! ../node_modules/style-loader/dist/runtim
 
 /***/ }),
 
+/***/ "./src/animate-dom.js":
+/*!****************************!*\
+  !*** ./src/animate-dom.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst createButGradient = () => {\n  const btn = document.querySelector('.mouse-cursor-gradient');\n  btn.onmousemove = (e) => {\n    const x = e.pageX - btn.offsetLeft - btn.offsetParent.offsetLeft;\n    const y = e.pageY - btn.offsetTop - btn.offsetParent.offsetTop;\n    btn.style.setProperty('left', `${x}px`);\n    btn.style.setProperty('right', `${y}px`);\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (createButGradient);\n\n//# sourceURL=webpack:///./src/animate-dom.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -151,7 +163,7 @@ eval("var api = __webpack_require__(/*! ../node_modules/style-loader/dist/runtim
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _Normalize_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Normalize.css */ \"./src/Normalize.css\");\n/* harmony import */ var _Normalize_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Normalize_css__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _Normalize_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Normalize.css */ \"./src/Normalize.css\");\n/* harmony import */ var _Normalize_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Normalize_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _animate_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animate-dom */ \"./src/animate-dom.js\");\n\n\n\n\nObject(_animate_dom__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
