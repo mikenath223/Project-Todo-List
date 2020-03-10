@@ -1,5 +1,25 @@
+const collector = [];
 
-const todoList = ["eat orange", "prepare food", "walk lion"]
+const addItems = ({
+  project,
+  title,
+  description,
+  date,
+  time,
+  priority,
+  note
+}) => {
+  collector.push({
+    project,
+    title,
+    description,
+    date,
+    time,
+    priority,
+    note
+  });
+  return console.log(collector);
+  ;
+};
 
-
-export default todoList;
+export { addItems, collector };

@@ -1,24 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
-
-
 body {
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
 }
 
 .list-item {
-
-    display:flex;
+  display: flex;
 }
 
-.list-item > * {
-
-    flex:1;
-    display:flex;
-    justify-content: space-evenly;
+.list-item>* {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
 }
-
-
 
 .mouse-cursor-gradient span {
   position: relative;
@@ -45,8 +39,7 @@ body {
   width: 100%;
 }
 
-.mouse-cursor-gradient,
- input[type="submit"] {
+.mouse-cursor-gradient, input[type="submit"] {
   position: relative;
   outline: none;
   border: none;
@@ -63,14 +56,19 @@ body {
   overflow: hidden;
 }
 
-.mouse-cursor-gradient:hover,
- input[type="submit"]:hover {
+.mouse-cursor-gradient:hover, input[type="submit"]:hover {
   box-shadow: none;
   border: 2px solid rgb(241, 57, 72);
 }
 
 .radio {
   margin-right: 15px;
+}
+
+input[type="checkbox"] {
+  --dimen: 30px;
+  width: var(--dimen);
+  height: var(--dimen);
 }
 
 form {
@@ -82,7 +80,7 @@ form {
   margin: auto
 }
 
-form > * {
+form>* {
   margin-bottom: 7px;
 }
 

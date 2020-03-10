@@ -1,12 +1,11 @@
 import './style.css';
 import './Normalize.css';
 import createButGradient from './animate-dom';
-import displayTasks from './dom-manipulation';
+import { addTasks, displayTasks } from './dom-manipulation';
 
 
 createButGradient();
-
+addTasks();
 displayTasks();
-
 
 
