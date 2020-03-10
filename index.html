@@ -1,4 +1,5 @@
-<e></e><!DOCTYPE html>
+<e></e>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,32 +11,38 @@
 
 <body>
   <main class="container">
-      <header class="top-sect">
-          <div class="task-list">
-              <h1>Task List: </h1>
-              <div class="list-item">
+    <header class="top-sect">
+      <div class="task-list">
+        <h1>Task List: </h1>
+        <div class="list-item">
 
-                  <div class="task-item">
-                  <input type="checkbox">
-                  <h2> this is a mockup task </h2>
-                  </div>
-                  <p> Due:</p>
-                  
-              </div>
-              <div class="list-item">
-
-                  <div>
-                      <input type="checkbox">
-                      <h2> this is a mockup task </h2>
-                  </div>
-                  <p> Due:</p>
-                  
-              </div>
-              
+          <div class="task-item">
+            <input type="checkbox">
+            <h2> this is a mockup task </h2>
           </div>
+          <p> Due:</p>
+
+        </div>
+        <div class="list-item">
+
+          <div>
+            <input type="checkbox">
+            <h2> this is a mockup task </h2>
+          </div>
+          <p> Due:</p>
+
+        </div>
+
+      </div>
       <div class="todo-create">
-          <button class="mouse-cursor-gradient add-task"><span>Create Task</span></button>
+        <button class="mouse-cursor-gradient add-task"><span>Create Task</span></button>
         <form action="" method="post">
+          <div>
+            <label for="project">Choose Project</label>
+            <select id="project" name="project" id="project">
+              <option value="">Default</option>
+            </select>
+          </div>
           <div>
             <label for="title">Task Title</label>
             <input type="text" name="title" id="title">
