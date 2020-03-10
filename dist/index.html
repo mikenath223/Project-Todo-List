@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Todo List Project</title>
 </head>
+
 <body>
   <main class="container">
     <header class="top-sect">
       <div class="todo-create">
-        
+        <button class="add-task">Create Task</button>
+        <form action="" method="post">
+          <div>
+            <label for="title">Task Title</label>
+            <input type="text" name="title" id="title">
+          </div>
+          <div>
+            <label for="title">Task Description</label>
+            <input type="text" name="description" id="description">
+          </div>
+          <div>
+            <label for="dueDate">Task Due-Date</label>
+            <input type="date" name="dueDate" id="dueDate" class="border">
+          </div>
+          <div>
+            <label for="dueTime">Task Due-Time</label>
+            <input type="time" name="dueTime" id="dueTime" class="border">
+          </div>
+          <div>
+            <label for="urgent">Urgent</label>
+            <input type="radio" name="priority" id="urgent" class="radio border">
+            <label for="important">Important</label>
+            <input type="radio" name="priority" id="important" class="radio border">
+            <label for="lessImportant">Less Important</label>
+            <input type="radio" name="priority" id="lessImportant" class="radio border">
+          </div>
+          <div>
+            <label for="notes">Add Notes</label>
+            <input type="text" name="notes" id="notes">
+          </div>
+          <input type="submit" value="Add Todo">
+        </form>
       </div>
     </header>
     <section class="wrapper">
@@ -19,4 +52,5 @@
   </main>
   <script src="bundle.js"></script>
 </body>
+
 </html>
