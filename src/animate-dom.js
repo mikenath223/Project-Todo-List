@@ -3,8 +3,8 @@ const createButGradient = () => {
   btn.onmousemove = (e) => {
     const x = e.pageX - btn.offsetLeft - btn.offsetParent.offsetLeft;
     const y = e.pageY - btn.offsetTop - btn.offsetParent.offsetTop;
-    btn.style.setProperty('left', `${x}px`);
-    btn.style.setProperty('right', `${y}px`);
+    btn.style.setProperty('--x', `${x}px`);
+    btn.style.setProperty('--y', `${y}px`);
   };
 };
 

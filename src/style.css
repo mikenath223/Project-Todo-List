@@ -14,6 +14,8 @@ body {
   --size: 0;
   content: '';
   position: absolute;
+  left: var(--x);
+  top: var(--y);
   width: var(--size);
   height: var(--size);
   background: radial-gradient(circle closest-side, rgb(199, 139, 235), transparent);
