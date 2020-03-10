@@ -1,24 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
 body {
   min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.mouse-cursor-gradient span {
+  position: relative;
+}
+
+.mouse-cursor-gradient::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, rgb(199, 139, 235), transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.3s ease;
+}
+
+.mouse-cursor-gradient:hover::before {
+  --size: 200px;
 }
 
 .todo-create {
   width: 100%;
 }
 
-.add-task {
-  color: #fff;
-  background-color: darkcyan;
-}
-
-button, input[type="submit"] {
+.mouse-cursor-gradient,
+ input[type="submit"] {
+  position: relative;
   outline: none;
   border: none;
   width: 150px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 15px;
+  font-size: 1.2em;
   color: #fff;
-  background-color: darkmagenta;
+  border: 1px solid rgb(241, 57, 72);
+  box-shadow: 0 2px 0 0 rgba(252, 87, 101, 0.829);
+  background-color: rgb(241, 36, 53);
+  cursor: pointer;
+  color: #fff;
+  overflow: hidden;
+}
+
+.mouse-cursor-gradient:hover,
+ input[type="submit"]:hover {
+  box-shadow: none;
+  border: 2px solid rgb(241, 57, 72);
+}
+
+.radio {
+  margin-right: 15px;
 }
 
 form {
