@@ -6,6 +6,20 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.list-item {
+
+    display:flex;
+}
+
+.list-item > * {
+
+    flex:1;
+    display:flex;
+    justify-content: space-evenly;
+}
+
+
+
 .mouse-cursor-gradient span {
   position: relative;
 }
