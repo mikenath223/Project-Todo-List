@@ -69,6 +69,8 @@ input[type="checkbox"] {
   --dimen: 30px;
   width: var(--dimen);
   height: var(--dimen);
+  position: relative;
+  z-index: 3;
 }
 
 form {
@@ -99,4 +101,32 @@ form input:not(.border) {
   display: flex;
   flex-direction: column;
   margin-bottom: 19px;
+}
+
+.list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  background-color: rgba(252, 87, 101, 0.829);
+  border-top: 2px solid rgb(16, 203, 228);
+  border-bottom: 1px solid #9b0707;
+  border-radius: 2px;
+  box-shadow: 0 0 200px rgba(0, 0, 0, .43) inset;
+  word-spacing: normal;
+  margin-bottom: 5px;
+}
+
+.list-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(252, 87, 101, 0.829);
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
 }

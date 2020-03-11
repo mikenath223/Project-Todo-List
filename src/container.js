@@ -16,7 +16,8 @@ const addItems = ({
     date,
     time,
     priority,
-    note
+    note,
+    completed: false
   });
   return console.log('collector', collector);
   ;

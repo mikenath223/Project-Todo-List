@@ -2,43 +2,46 @@ import { collector, addItems } from "./container";
 import { saveTask, retrieveTasks } from "./storage";
 
 let projects = [];
-const appendProjects = (stored) => {
+const appendProjects = stored => {
   const select = document.querySelector("#project");
   if (stored) {
     retrieveTasks().array.forEach(task => {
       let proj = task.project;
+      if (!projects.includes(proj)) {
         projects.push(proj);
-        select.innerHTML += `<option value='${proj}'>${proj}</option>`;  
-    })
+        let uniqProj = projects[projects.length - 1];
+        select.innerHTML += `<option value='${uniqProj}'>${uniqProj}</option>`;
+      }
+    });
   } else {
     const proj = projects[projects.length - 1];
-    select.innerHTML += `<option value='${proj}'>${proj}</option>`;  
+    select.innerHTML += `<option value='${proj}'>${proj}</option>`;
   }
 };
 
-const appendTask = elem => {
+const appendTask = (elem, ind) => {
   const parent = document.querySelector(".task-list");
   const newElem = document.createElement("div");
   newElem.classList.add("list-item");
   newElem.innerHTML = `
-  <div class="task-item">
+  <div class="task-item" data-index=${ind}>
       <input type="checkbox">
       <h2>${elem.title}</h2>
   </div>
-  <p>Due: <span>${elem.date}</span> | <span>${elem.time}</span></p>
+  <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
   `;
   parent.appendChild(newElem);
 };
 
 const appendStorage = () => {
   if (retrieveTasks().array.length > 0) {
-    retrieveTasks().array.forEach((elem) => appendTask(elem));
+    retrieveTasks().array.forEach((elem, ind) => appendTask(elem, ind));
   }
 };
 
 const displayTasks = () => {
   const items = retrieveTasks().array;
-  const task = items[items.length-1];
+  const task = items[items.length - 1];
   appendTask(task);
 };
 
@@ -81,4 +84,19 @@ const addTasks = () => {
   });
 };
 
-export { addTasks, appendStorage, appendProjects };
+const completeTask = () => {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  console.log(checkboxes);
+  checkboxes.forEach(box => {
+    box.onclick = () => {
+      if (box.checked == true) {
+        const ind = box.parentNode.dataset.index;
+        console.log(ind);
+      } else {
+
+      }
+    };
+  });
+};
+
+export { addTasks, appendStorage, appendProjects, completeTask };
