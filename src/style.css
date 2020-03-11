@@ -109,7 +109,7 @@ form input:not(.border) {
   align-items: center;
   padding: 2px;
   background-color: rgba(252, 87, 101, 0.829);
-  border-top: 2px solid rgb(16, 203, 228);
+  border-top: 2px solid #000;
   border-bottom: 1px solid #9b0707;
   border-radius: 2px;
   box-shadow: 0 0 200px rgba(0, 0, 0, .43) inset;
@@ -118,11 +118,13 @@ form input:not(.border) {
 }
 
 .list-item::before {
+  --width: 0;
   content: "";
   position: absolute;
   top: 50%;
-  width: 100%;
+  width: var(--width);
   height: 5px;
+  transition: width 0.5s;
   background-color: rgba(252, 87, 101, 0.829);
 }
 

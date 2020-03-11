@@ -90,10 +90,17 @@ const completeTask = () => {
   checkboxes.forEach(box => {
     box.onclick = () => {
       if (box.checked == true) {
-        const ind = box.parentNode.dataset.index;
+        const parent = box.parentNode
+        const ind = parent.dataset.index;
+        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.29)"
+        parent.parentNode.style.borderTop = "2px solid green"
+        parent.parentNode.style.color = "gray"
+        // parent.parentNode.style.setProperty('--width', `${100}%`)
         console.log(ind);
       } else {
-
+        parent.parentNode.style.borderTop = "2px solid black"
+        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.829)"
+        parent.parentNode.style.color = "#000"
       }
     };
   });
