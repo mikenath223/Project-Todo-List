@@ -10,70 +10,66 @@
 </head>
 
 <body>
-    <main class="container">
-
-        <nav>
-            <div class="add-projects">add project</div>
-            <div class="list-projects">
-
-                <p class="project-item">HOME REPAIR<p>
-                    <p class="project-item">WORK<p>
-            </div>
-        </nav>
+  <main class="container">
     <header class="top-sect">
+    </header>
+
+    <section class="wrapper">
       <div class="task-list">
         <h1>Task List: </h1>
       </div>
       <div class="todo-create">
         <button class="mouse-cursor-gradient add-task"><span>Create Task</span></button>
-        <form action="" method="post">
-          <div class="choose-project">
-            <label for="project">Choose Existing Project</label>
-            <select id="project" name="project">
-              <option value="">Default</option>
-            </select>
-            <span>or</span>
-            <div>
-              <label for="newProj">Add new Project</label>
-              <input type="text" name="newProj" id="newProj">
-            </div>
-          </div>
-          <div>
-            <label for="title">Task Title</label>
-            <input type="text" name="title" id="title">
-          </div>
-          <div>
-            <label for="title">Task Description</label>
-            <input type="text" name="description" id="description">
-          </div>
-          <div>
-            <label for="dueDate">Task Due-Date</label>
-            <input type="date" name="dueDate" id="dueDate" class="border">
-          </div>
-          <div>
-            <label for="dueTime">Task Due-Time</label>
-            <input type="time" name="dueTime" id="dueTime" class="border">
-          </div>
-          <div>
-            <p>Task Priority</p>
-            <label for="urgent">Urgent</label>
-            <input type="radio" name="priority" id="urgent" class="radio border">
-            <label for="important">Important</label>
-            <input type="radio" name="priority" id="important" class="radio border">
-            <label for="lessImportant">Less Important</label>
-            <input type="radio" name="priority" id="lessImportant" class="radio border">
-          </div>
-          <div>
-            <label for="notes">Add Notes</label>
-            <input type="text" name="notes" id="notes">
-          </div>
-          <input type="submit" value="Add Todo">
-        </form>
-      </div>
-    </header>
-    <section class="wrapper">
 
+        <div class="modal">
+          <span class="close">&times;</span>
+          <form action="" method="post" class="form">
+            <div class="choose-project">
+              <label for="project">Choose Existing Project</label>
+              <select id="project" name="project">
+                <option value="">Default</option>
+              </select>
+              <span>or</span>
+              <div>
+                <label for="newProj">Add new Project</label>
+                <input type="text" name="newProj" id="newProj">
+              </div>
+            </div>
+            <div>
+              <label for="title">Task Title</label>
+              <input type="text" name="title" id="title">
+            </div>
+            <div>
+              <label for="title">Task Description</label>
+              <input type="text" name="description" id="description">
+            </div>
+            <div>
+              <label for="dueDate">Task Due-Date</label>
+              <input type="date" name="dueDate" id="dueDate" class="border">
+            </div>
+            <div>
+              <label for="dueTime">Task Due-Time</label>
+              <input type="time" name="dueTime" id="dueTime" class="border">
+            </div>
+            <div>
+              <p>Task Priority</p>
+              <label for="urgent">Urgent</label>
+              <input type="radio" name="priority" id="urgent" class="radio border">
+              <label for="important">Important</label>
+              <input type="radio" name="priority" id="important" class="radio border">
+              <label for="lessImportant">Less Important</label>
+              <input type="radio" name="priority" id="lessImportant" class="radio border">
+            </div>
+            <div>
+              <label for="notes">Add Notes</label>
+              <input type="text" name="notes" id="notes">
+            </div>
+            <input type="submit" value="Add Todo">
+          </form>
+        </div>
+      </div>
     </section>
+
   </main>
   <script src="bundle.js"></script>
 </body>
