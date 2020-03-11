@@ -18,7 +18,7 @@ const addItems = ({
     priority,
     note
   });
-  return console.log(collector);
+  return console.log('collector', collector);
   ;
 };
 

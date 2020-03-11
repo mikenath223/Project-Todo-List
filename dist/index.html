@@ -37,11 +37,16 @@
       <div class="todo-create">
         <button class="mouse-cursor-gradient add-task"><span>Create Task</span></button>
         <form action="" method="post">
-          <div>
-            <label for="project">Choose Project</label>
-            <select id="project" name="project" id="project">
+          <div class="choose-project">
+            <label for="project">Choose Existing Project</label>
+            <select id="project" name="project">
               <option value="">Default</option>
             </select>
+            <span>or</span>
+            <div>
+              <label for="newProj">Add new Project</label>
+              <input type="text" name="newProj" id="newProj">
+            </div>
           </div>
           <div>
             <label for="title">Task Title</label>
