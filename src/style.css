@@ -4,6 +4,19 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+nav {
+}
+.list-projects {
+
+    display:flex;
+    justify-content:right;}
+
+.project-item {
+
+    background: deeppink;
+    padding:10px;
+    margin:10px;
+}
 .list-item {
   display: flex;
 }
@@ -14,6 +27,18 @@ body {
   justify-content: space-evenly;
 }
 
+.form-hidden {
+    display:none;
+}
+
+.show-form {
+    position:absolute;
+    background-color:yellow;
+    height:100vw;
+    width: 100vw;
+    top:0;
+    z-index:10;
+}
 .mouse-cursor-gradient span {
   position: relative;
 }
