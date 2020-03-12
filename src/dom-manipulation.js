@@ -105,21 +105,20 @@ const appendTask = (elem, ind) => {
     accordionList.append(projectTitle, newElem);
   };
 
-  const accordion = document.querySelectorAll(".accordion-list");
-  const accordionArray = [...accordion];
+  const accordion = [...document.querySelectorAll(".accordion-list")];
+  const accordionArray = accordion.map(e => e.dataset.project);
 
   if (accordion.length > 0) {
-    let bool, index;
-    accordionArray.forEach((e, ind) => {
-      console.log(elem.project, e.dataset.project, "project");
-
-      if (elem.project === e.dataset.project) {
-        index = ind;
-        return (bool = true);
-      } else {
-        return (bool = false);
+    let bool;
+    let index;
+    let accordSet = [...new Set(accordionArray)];
+    for (let ele in accordSet) {
+      if (elem.project === accordSet[ele]) {
+        index = ele;
+        bool = true;
+        break;
       }
-    });
+    }
     if (bool) {
       accordion[index].appendChild(newElem);
     } else {

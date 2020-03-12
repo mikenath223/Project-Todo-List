@@ -4,6 +4,10 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.container {
+  padding: 0 20px;
+}
+
 .top-sect {
   display: flex;
   background-color: purple;
