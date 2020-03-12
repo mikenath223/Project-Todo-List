@@ -1,24 +1,26 @@
 import { collector, addItems } from "./container";
 import { saveTask, retrieveTasks } from "./storage";
-import Edit from './assets/edit.png';
-import High from './assets/high.png';
-import Medium from './assets/medium.png';
-import Low from './assets/low.png';
-
-
+import Edit from "./assets/edit.png";
+import High from "./assets/high.png";
+import Medium from "./assets/medium.png";
+import Low from "./assets/low.png";
 
 const showTaskForm = () => {
   const showBut = document.querySelector(".add-task");
   const modal = document.querySelector(".modal");
+  const form = document.querySelector(".form");
   showBut.onclick = () => {
-    modal.style.display = "block";
+    modal.style.visibility = "visible";
+    form.classList.add("translate");
   };
   document.querySelector(".close").onclick = () => {
-    modal.style.display = "none";
+    modal.style.visbility = "hidden";
+    form.classList.remove("translate");
   };
   window.onclick = e => {
     if (e.target === modal) {
-      modal.style.display = "none";
+      modal.style.visibility = "hidden";
+      form.classList.remove("translate");
     }
   };
 };
@@ -28,7 +30,7 @@ const completedState = (parent, index, line) => {
   parent.style.borderTop = "3px solid green";
   parent.style.color = "gray";
   line[index].style.width = "100%";
-  parent.classList.add('change');
+  parent.classList.add("change");
 };
 
 const uncompletedState = (parent, index, line) => {
@@ -36,7 +38,7 @@ const uncompletedState = (parent, index, line) => {
   parent.style.borderTop = "3px solid black";
   parent.style.color = "#000";
   line[index].style.width = "0";
-  parent.classList.remove('change');
+  parent.classList.remove("change");
 };
 
 let projects = [];
@@ -65,14 +67,31 @@ const appendTask = (elem, ind) => {
 
   const newElem = createElem("div");
   newElem.classList.add("list-item");
+  let priority;
+  if (elem.priority === "urgent") {
+    priority = High;
+  } else if (elem.priority === "important") {
+    priority = Medium;
+  } else {
+    priority = Low;
+  }
+  // console.log(elem.priority);
+  // priority.forEach(e => {if (e.checked) {console.log(e.id)}})
+  // if (elem.priority === "")
   newElem.innerHTML = `
   <span class="list-item-before"></span>
   <div class="task-item" data-index=${ind}>
+      <div>
+      <img src=${priority} alt="priority" class="priority"/>
+      </div>
       <input type="checkbox">
       <h2>${elem.title}</h2>
   </div>
+  <div class="date-wrap">
   <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
   <img src=${Edit} alt="edit" class="icon"/>
+  </div>
+  </div>
   `;
 
   const createAccordion = () => {
@@ -111,7 +130,11 @@ const appendTask = (elem, ind) => {
   }
 
   if (elem.completed) {
-    completedState(newElem, ind, document.querySelectorAll('.list-item-before'));
+    completedState(
+      newElem,
+      ind,
+      document.querySelectorAll(".list-item-before")
+    );
     document.querySelectorAll("input[type='checkbox")[ind].checked = true;
   }
 };
@@ -136,9 +159,18 @@ const addTasks = () => {
     const formElems = form.elements;
     const checked = () => {
       document.querySelectorAll(".radio").forEach(elem => {
-        if (elem.checked) return elem.value;
+        if (elem.checked) {
+          return elem.id;
+        }
       });
     };
+    let status;
+    formElems.priority.forEach(e => {
+      if (e.checked) {
+        console.log(e.id);
+        return (status = e.id);
+      }
+    });
     let project =
       formElems.newProj.value.length < 1
         ? formElems.project.value
@@ -148,7 +180,7 @@ const addTasks = () => {
     arr[2] = formElems.description.value;
     arr[3] = formElems.dueDate.value;
     arr[4] = formElems.dueTime.value;
-    arr[5] = checked();
+    arr[5] = status;
     arr[6] = formElems.notes.value;
     addItems({
       project: arr[0],
@@ -168,20 +200,16 @@ const addTasks = () => {
 };
 
 const toggleLocalStore = (ind, state) => {
-  console.log('works');
-  
   const newTaskList = { array: [] };
   const tasks = retrieveTasks().array;
   tasks.forEach((item, taskInd) => {
     if (+ind === taskInd) {
-      console.log(ind, taskInd, item.completed);
-      
       item.completed = state;
     }
     newTaskList.array.push(item);
   });
   localStorage.setItem("taskList", JSON.stringify(newTaskList));
-}
+};
 
 const completeTask = () => {
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -192,10 +220,7 @@ const completeTask = () => {
       const lineCancel = document.querySelectorAll(".list-item-before");
       if (box.checked == true) {
         completedState(parent.parentNode, ind, lineCancel);
-        
         toggleLocalStore(ind, true);
-
-        // editTask(2);
       } else {
         uncompletedState(parent.parentNode, ind, lineCancel);
         toggleLocalStore(ind, false);
