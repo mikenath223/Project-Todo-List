@@ -1,5 +1,11 @@
 import { collector, addItems } from "./container";
 import { saveTask, retrieveTasks } from "./storage";
+import Edit from './assets/edit.png';
+import High from './assets/high.png';
+import Medium from './assets/medium.png';
+import Low from './assets/low.png';
+
+
 
 const showTaskForm = () => {
   const showBut = document.querySelector(".add-task");
@@ -15,6 +21,22 @@ const showTaskForm = () => {
       modal.style.display = "none";
     }
   };
+};
+
+const completedState = (parent, index, line) => {
+  parent.style.backgroundColor = "rgba(252, 87, 101, 0.29)";
+  parent.style.borderTop = "3px solid green";
+  parent.style.color = "gray";
+  line[index].style.width = "100%";
+  parent.classList.add('change');
+};
+
+const uncompletedState = (parent, index, line) => {
+  parent.style.backgroundColor = "rgb(241, 36, 53)";
+  parent.style.borderTop = "3px solid black";
+  parent.style.color = "#000";
+  line[index].style.width = "0";
+  parent.classList.remove('change');
 };
 
 let projects = [];
@@ -50,7 +72,7 @@ const appendTask = (elem, ind) => {
       <h2>${elem.title}</h2>
   </div>
   <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
-
+  <img src=${Edit} alt="edit" class="icon"/>
   `;
 
   const createAccordion = () => {
@@ -70,6 +92,8 @@ const appendTask = (elem, ind) => {
   if (accordion.length > 0) {
     let bool, index;
     accordionArray.forEach((e, ind) => {
+      console.log(elem.project, e.dataset.project, "project");
+
       if (elem.project === e.dataset.project) {
         index = ind;
         return (bool = true);
@@ -84,6 +108,11 @@ const appendTask = (elem, ind) => {
     }
   } else {
     createAccordion();
+  }
+
+  if (elem.completed) {
+    completedState(newElem, ind, document.querySelectorAll('.list-item-before'));
+    document.querySelectorAll("input[type='checkbox")[ind].checked = true;
   }
 };
 
@@ -138,27 +167,38 @@ const addTasks = () => {
   });
 };
 
+const toggleLocalStore = (ind, state) => {
+  console.log('works');
+  
+  const newTaskList = { array: [] };
+  const tasks = retrieveTasks().array;
+  tasks.forEach((item, taskInd) => {
+    if (+ind === taskInd) {
+      console.log(ind, taskInd, item.completed);
+      
+      item.completed = state;
+    }
+    newTaskList.array.push(item);
+  });
+  localStorage.setItem("taskList", JSON.stringify(newTaskList));
+}
+
 const completeTask = () => {
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
-  console.log(checkboxes);
   checkboxes.forEach(box => {
     box.onclick = () => {
       const parent = box.parentNode;
       const ind = parent.dataset.index;
       const lineCancel = document.querySelectorAll(".list-item-before");
       if (box.checked == true) {
-        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.29)";
-        parent.parentNode.style.borderTop = "2px solid green";
-        parent.parentNode.style.color = "gray";
-        lineCancel[ind].style.width = "100%";
-        // parent.parentNode.style.setProperty('--width', `${100}%`)
+        completedState(parent.parentNode, ind, lineCancel);
+        
+        toggleLocalStore(ind, true);
 
         // editTask(2);
       } else {
-        lineCancel[ind].style.width = "0";
-        parent.parentNode.style.borderTop = "2px solid black";
-        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.829)";
-        parent.parentNode.style.color = "#000";
+        uncompletedState(parent.parentNode, ind, lineCancel);
+        toggleLocalStore(ind, false);
       }
     };
   });

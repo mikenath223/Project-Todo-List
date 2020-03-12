@@ -22,6 +22,7 @@ body {
     top:0;
     z-index:10;
 } */
+
 .mouse-cursor-gradient span {
   position: relative;
 }
@@ -85,17 +86,19 @@ input[type="checkbox"] {
   display: flex;
   flex-flow: column wrap;
   max-width: 400px;
-  height: 600px;
+  height: 630px;
   justify-content: space-around;
   margin: 20px auto;
   background-color: #fff;
-  padding: 20px;
   border-radius: 15px;
+  padding: 0;
 }
 
 .form>h1 {
-  margin: 0;
-  background-color: rgba(252, 87, 101, 0.829);
+  margin: -7px 0 0 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: rgb(241, 36, 53);
   color: #fff;
   text-align: center;
 }
@@ -113,7 +116,7 @@ input[type="checkbox"] {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .close {
@@ -125,8 +128,7 @@ input[type="checkbox"] {
   float: right;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: #000;
 }
 
@@ -134,8 +136,8 @@ input[type="checkbox"] {
   display: flex;
 }
 
-.form>* {
-  margin-bottom: 7px;
+.form>div {
+  margin: 3 20px;
 }
 
 .form input:not(.border) {
@@ -160,8 +162,8 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   padding: 2px;
-  background-color: rgba(252, 87, 101, 0.829);
-  border-top: 2px solid #000;
+  background-color: rgb(241, 36, 53);
+  border-top: 3px solid #000;
   border-bottom: 1px solid #9b0707;
   border-radius: 2px;
   box-shadow: 0 0 200px rgba(0, 0, 0, .43) inset;
@@ -174,7 +176,7 @@ input[type="checkbox"] {
   top: 50%;
   width: 0;
   height: 5px;
-  transition: width 0.5s;
+  transition: width 1s;
   border-radius: 20px;
   background-color: rgba(241, 15, 109, 0.829);
 }
@@ -182,4 +184,53 @@ input[type="checkbox"] {
 .task-item {
   display: flex;
   align-items: center;
+}
+
+.task-list {
+  perspective: 100vw;
+  transform-style: preserve-3d;
+}
+
+.blob {
+  width: 150px;
+  height: 180px;
+  background: radial-gradient(ellipse at center, #fea04f 0%, #f99a00 31%, #fe1605 100%);
+  animation: animate_blob_1 30s cubic-bezier(0.75, 0.82, 0.165, 1) infinite;
+  ;
+}
+
+@keyframes animate_blob_1 {
+  0% {
+    border-radius: 51% 49% 19% 81% / 51% 74% 26% 49%;
+  }
+  20% {
+    border-radius: 15% 85% 57% 43% / 69% 48% 52% 31%;
+  }
+  40% {
+    border-radius: 66% 34% 44% 56% / 33% 19% 81% 67%;
+  }
+  60% {
+    border-radius: 23% 77% 67% 33% / 11% 77% 23% 89%;
+  }
+  80% {
+    border-radius: 48% 52% 76% 24% / 46% 13% 87% 54%;
+  }
+  100% {
+    border-radius: 51% 49% 19% 81% / 51% 74% 26% 49%;
+  }
+}
+
+.change {
+  transform: rotateX(-40deg) rotateY(0deg) rotate(0deg);
+  transform-origin: center center;
+  transition: all 0.7s ease-in-out;
+}
+
+.change:hover {
+  transform: rotateX(0deg) rotateY(0deg) rotate(0deg);
+}
+
+.icon {
+  width: 10px;
+  height: 20px;
 }
