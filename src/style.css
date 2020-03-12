@@ -4,32 +4,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-nav {
-
-}
-.list-projects {
-
-    display:flex;
-    justify-content:right;}
-
-.project-item {
-
-    background: deeppink;
-    padding:10px;
-    margin:10px;
-}
-.list-item {
-  display: flex;
-}
-
 .list-item>* {
   flex: 1;
   display: flex;
   justify-content: space-evenly;
 }
 
-.form-hidden {
-    display:none;
+.wrapper {
+  padding: 20px;
 }
 
 /* .show-form {
@@ -102,14 +84,25 @@ input[type="checkbox"] {
 .form {
   display: flex;
   flex-flow: column wrap;
-  width: 50%;
-  height: 570px;
+  max-width: 400px;
+  height: 600px;
   justify-content: space-around;
   margin: 20px auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;
 }
+
+.form>h1 {
+  margin: 0;
+  background-color: rgba(252, 87, 101, 0.829);
+  color: #fff;
+  text-align: center;
+}
+
+/* .translate {
+
+} */
 
 .modal {
   display: none;

@@ -2,20 +2,20 @@ import { collector, addItems } from "./container";
 import { saveTask, retrieveTasks } from "./storage";
 
 const showTaskForm = () => {
-  const showBut = document.querySelector('.add-task');
-  const modal = document.querySelector('.modal');
+  const showBut = document.querySelector(".add-task");
+  const modal = document.querySelector(".modal");
   showBut.onclick = () => {
     modal.style.display = "block";
-  }
-  document.querySelector('.close').onclick = () => {
+  };
+  document.querySelector(".close").onclick = () => {
     modal.style.display = "none";
-  }
-  window.onclick = (e) => {
+  };
+  window.onclick = e => {
     if (e.target === modal) {
       modal.style.display = "none";
     }
-  }
-}
+  };
+};
 
 let projects = [];
 const appendProjects = stored => {
@@ -36,8 +36,12 @@ const appendProjects = stored => {
 };
 
 const appendTask = (elem, ind) => {
+  const createElem = ele => {
+    return document.createElement(ele);
+  };
   const parent = document.querySelector(".task-list");
-  const newElem = document.createElement("div");
+
+  const newElem = createElem("div");
   newElem.classList.add("list-item");
   newElem.innerHTML = `
   <span class="list-item-before"></span>
@@ -48,7 +52,39 @@ const appendTask = (elem, ind) => {
   <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
 
   `;
-  parent.appendChild(newElem);
+
+  const createAccordion = () => {
+    const accordionList = createElem("div");
+    accordionList.classList.add("accordion-list");
+    accordionList.dataset.project = `${elem.project}`;
+    const projectTitle = createElem("p");
+    projectTitle.classList.add("project-title");
+    projectTitle.innerHTML = `${elem.project} <span class"toggle">&plus;</span>`;
+    parent.appendChild(accordionList);
+    accordionList.append(projectTitle, newElem);
+  };
+
+  const accordion = document.querySelectorAll(".accordion-list");
+  const accordionArray = [...accordion];
+
+  if (accordion.length > 0) {
+    let bool, index;
+    accordionArray.forEach((e, ind) => {
+      if (elem.project === e.dataset.project) {
+        index = ind;
+        return (bool = true);
+      } else {
+        return (bool = false);
+      }
+    });
+    if (bool) {
+      accordion[index].appendChild(newElem);
+    } else {
+      createAccordion();
+    }
+  } else {
+    createAccordion();
+  }
 };
 
 const appendStorage = () => {
@@ -60,7 +96,7 @@ const appendStorage = () => {
 const displayTasks = () => {
   const items = retrieveTasks().array;
   const task = items[items.length - 1];
-  appendTask(task);
+  appendTask(task, items.length - 1);
 };
 
 const addTasks = () => {
@@ -105,32 +141,27 @@ const addTasks = () => {
 const completeTask = () => {
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
   console.log(checkboxes);
-    checkboxes.forEach(box => {
-    
-     box.onclick = () => {
-       const parent = box.parentNode
+  checkboxes.forEach(box => {
+    box.onclick = () => {
+      const parent = box.parentNode;
+      const ind = parent.dataset.index;
+      const lineCancel = document.querySelectorAll(".list-item-before");
       if (box.checked == true) {
-        const ind = parent.dataset.index;
-        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.29)"
-        parent.parentNode.style.borderTop = "2px solid green"
-        parent.parentNode.style.color = "gray"
-        document.querySelectorAll('.list-item-before')[ind].style.width = "100%"
+        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.29)";
+        parent.parentNode.style.borderTop = "2px solid green";
+        parent.parentNode.style.color = "gray";
+        lineCancel[ind].style.width = "100%";
         // parent.parentNode.style.setProperty('--width', `${100}%`)
-        console.log(document.styleSheets);
-        
+
         // editTask(2);
       } else {
-        parent.parentNode.style.borderTop = "2px solid black"
-        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.829)"
-        parent.parentNode.style.color = "#000"
-
-          
-          
+        lineCancel[ind].style.width = "0";
+        parent.parentNode.style.borderTop = "2px solid black";
+        parent.parentNode.style.backgroundColor = "rgba(252, 87, 101, 0.829)";
+        parent.parentNode.style.color = "#000";
       }
     };
   });
 };
-
-
 
 export { addTasks, appendStorage, appendProjects, completeTask, showTaskForm };
