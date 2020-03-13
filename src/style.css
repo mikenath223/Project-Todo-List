@@ -247,7 +247,8 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-.project-title > span {
+.project-toggle {
+  cursor: pointer;
   display: block;
   color: royalblue;
   float: right;
