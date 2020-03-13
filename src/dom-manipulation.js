@@ -1,36 +1,27 @@
 import { collector, addItems } from "./container";
 import { saveTask, retrieveTasks } from "./storage";
+import { editTaskForm, editStorage } from "./edit-task";
+import delTask from './del-task';
 import Edit from "./assets/edit.png";
 import High from "./assets/high.png";
 import Medium from "./assets/medium.png";
 import Low from "./assets/low.png";
-import { editTaskForm, editStorage } from "./edit-task";
+import Del from "./assets/delete.png";
 
 const form = document.querySelector(".form");
+const modal = document.querySelector(".modal");
 const showTaskForm = () => {
   const showBut = document.querySelector(".add-task");
-  const modal = document.querySelector(".modal");
-  const icons = document.querySelectorAll(".icon");
-  const showForm = state => {
+
+  showBut.onclick = () => {
     modal.style.visibility = "visible";
     form.classList.add("translate");
-    if (state === "create") {
-      form.elements[10].value = "Create Task";
-      form.firstElementChild.textContent = "Create Task";
-    }
+    form.elements[10].value = "Add Todo";
+    form.firstElementChild.textContent = "Create Task";
   };
 
-  showBut.onclick = () => showForm("create");
-
-  icons.forEach((e, ind) => {
-    e.onclick = () => {
-      showForm("edit");
-      editTaskForm(ind);
-    };
-  });
-
   document.querySelector(".close").onclick = () => {
-    modal.style.visbility = "hidden";
+    modal.style.visibility = "hidden";
     form.classList.remove("translate");
   };
   window.onclick = e => {
@@ -74,23 +65,23 @@ const appendProjects = () => {
     });
   } else {
     const proj = projects[projects.length - 1];
-    select.innerHTML += `<option value='${proj}'>${proj}</option>`;
+    if (proj) {
+      select.innerHTML += `<option value='${proj}'>${proj}</option>`;
+    }
   }
 };
 
-const checkPriority = (status) => {
+const checkPriority = status => {
   let priority;
   if (status === "urgent") {
     priority = High;
-  }
-  else if (status === "important") {
+  } else if (status === "important") {
     priority = Medium;
-  }
-  else {
+  } else {
     priority = Low;
   }
   return priority;
-}
+};
 
 const appendTask = (elem, ind) => {
   const createElem = ele => {
@@ -113,7 +104,8 @@ const appendTask = (elem, ind) => {
   </div>
   <div class="date-wrap">
   <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
-  <img src=${Edit} alt="edit" class="icon"/>
+  <img src=${Edit} alt="edit" class="icon icon-${ind}"/>
+  <img src=${Del} alt="delete" class="del-icon del-icon-${ind}" data-icon=${ind}/>
   </div>
   </div>
   `;
@@ -161,6 +153,16 @@ const appendTask = (elem, ind) => {
       }
     });
   }
+
+  document.querySelector(`.icon-${ind}`).onclick = () => {
+    modal.style.visibility = "visible";
+    form.classList.add("translate");
+    editTaskForm(ind);
+  };
+
+  document.querySelector(`.del-icon-${ind}`).onclick = () => {
+    delTask(ind);
+  }
 };
 
 const appendStorage = () => {
@@ -175,13 +177,13 @@ const displayTasks = () => {
   appendTask(task, items.length - 1);
 };
 
-const appendEditTask = (index) => {
+const appendEditTask = index => {
   const task = retrieveTasks()[index];
   const formElems = form.elements;
   let project =
-      formElems.newProj.value.length < 1
-        ? formElems.project.value
-        : formElems.newProj.value;
+    formElems.newProj.value.length < 1
+      ? formElems.project.value
+      : formElems.newProj.value;
   let status;
   formElems.priority.forEach(e => {
     if (e.checked) {
@@ -203,13 +205,13 @@ const appendEditTask = (index) => {
   editStorage(index, task);
 
   for (let el in formElems) {
-    if (formElems[el].value) formElems[el].value = '';
+    if (formElems[el].value) formElems[el].value = "";
   }
 
-  document.querySelector('.modal').style.visibility = "hidden";
+  document.querySelector(".modal").style.visibility = "hidden";
   form.classList.remove("translate");
 
-  const list = document.querySelectorAll('.list-item');
+  const list = document.querySelectorAll(".list-item");
   for (let el in list) {
     if (list[el].dataset.index === index.toString()) {
       let listChildren = list[el].children;
@@ -217,19 +219,43 @@ const appendEditTask = (index) => {
       let parentSecondchild = listChildren[2];
       parentFirstchild.children[0].lastElementChild.src = checkPriority(status);
       parentFirstchild.lastElementChild.textContent = title;
-      parentSecondchild.innerHTML = `Due: <span>${dueDate}</span>|<span>${dueTime}</span>`;
+      parentSecondchild.innerHTML = `
+      <p>Due: <span>${dueDate}</span>|<span>${dueTime}</span></p>
+      <img src=${Edit} alt="edit" class="icon"/>
+      <img src=${Del} alt="delete" class="del-icon"/>
+      `;
+
+      let icons = [...document.querySelectorAll(".icon")];
+      let icon = icons[index];
+
+      icon.onclick = () => {
+        console.log("works");
+        modal.style.visibility = "visible";
+        form.classList.add("translate");
+        editTaskForm(index);
+      };
+
+      let delIcons = [...document.querySelectorAll('.del-icon')]
+      let delIcon = delIcons[index];
+
+      delIcon.onclick = () => {
+        delTask(index);
+      }
+
       break;
     }
   }
+};
+
+const appendDelTask = () => {
 
 };
 
-
 const addTasks = () => {
   form.addEventListener("submit", e => {
-    const formSubmit = form.elements[10];
+    const formSubmit = e.target.elements[10];
     e.preventDefault();
-    if ((formSubmit.value = "Edit Item")) {
+    if (formSubmit.value === "Edit Item") {
       const submitInd = formSubmit.dataset.index;
       return appendEditTask(submitInd);
     }
@@ -240,23 +266,37 @@ const addTasks = () => {
         return (status = e.id);
       }
     });
+    let newProj = formElems.newProj.value;
     let project =
-      formElems.newProj.value.length < 1
-        ? formElems.project.value
-        : formElems.newProj.value;
+      formElems.newProj.value.length < 1 ? formElems.project.value : newProj;
+    let formTitle = formElems.title.value;
+    let formDesc = formElems.description.value;
+    let dueDate = formElems.dueDate.value;
+    let dueTime = formElems.dueTime.value;
+    let notes = formElems.notes.value;
     addItems({
       project: project,
-      title: formElems.title.value,
-      description: formElems.description.value,
-      date: formElems.dueDate.value,
-      time: formElems.dueTime.value,
+      title: formTitle,
+      description: formDesc,
+      date: dueDate,
+      time: dueTime,
       priority: status,
-      note: formElems.notes.value
+      note: notes
     });
     saveTask(collector[collector.length - 1]);
 
     appendProjects();
     displayTasks();
+
+    formElems.newProj.value = "";
+    formElems.title.value = "";
+    formElems.description.value = "";
+    formElems.dueDate.value = "";
+    formElems.dueTime.value = "";
+    formElems.notes.value = "";
+
+    modal.style.visibility = "hidden";
+    form.classList.remove("translate");
   });
 };
 

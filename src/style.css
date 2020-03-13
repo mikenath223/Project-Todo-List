@@ -51,6 +51,10 @@ body {
   margin: auto;
 }
 
+::selection {
+  color: #fff;
+  background-color: #000;
+}
 
 .mouse-cursor-gradient span {
   position: relative;
@@ -132,6 +136,7 @@ input[type="checkbox"] {
   padding: 0;
   transform: translateY(-200px);
   transition: transform 0.4s;
+  overflow-x: hidden;
 }
 
 .form>h1 {
@@ -288,11 +293,16 @@ input[type="checkbox"] {
   transform: rotateX(0deg) rotateY(0deg) rotate(0deg);
 }
 
-.icon {
+.icon, .del-icon {
   margin-right: 15px;
   width: 35px;
   height: 45px;
   cursor: pointer;
+}
+
+.del-icon {
+  width: 37px;
+  height: 43px;
 }
 
 .priority  {

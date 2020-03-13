@@ -1,6 +1,8 @@
 import { retrieveTasks } from "./storage";
 
 const editTaskForm = (ind) => {
+  console.log('err');
+  
   const form = document.querySelector(".form");      
   const formElems = form.elements;
   const task = retrieveTasks()[ind];
