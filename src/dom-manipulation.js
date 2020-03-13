@@ -32,13 +32,8 @@ const showTaskForm = () => {
   };
 };
 
-const completedState = (parent, index) => {
-  const line = document.querySelectorAll('.list-item-before');
-  line.forEach(e => {
-    if (e.dataset.check === index) {
-      e.style.width = '100%';
-    }
-  });
+const completedState = (parent, line) => {
+  line.style.width = '100%';
   parent.classList.add('change');
 };
 
@@ -79,10 +74,6 @@ const checkPriority = status => {
   return priority;
 };
 
-const appendDelTask = index => {
-  const dl = document.querySelector(`div[data-index="${index}"]`);
-  dl.parentNode.removeChild(dl);
-};
 
 const appendTask = (elem, ind) => {
   const createElem = ele => document.createElement(ele);
@@ -145,7 +136,10 @@ const appendTask = (elem, ind) => {
   }
 
   if (elem.completed) {
-    completedState(newElem, ind.toString());
+    completedState(
+      newElem,
+      document.querySelector(`span[data-check="${ind}"]`),
+    );
     const checkBoxes = document.querySelectorAll("input[type='checkbox']");
     checkBoxes.forEach(e => {
       if (e.dataset.check === ind.toString()) {
@@ -162,7 +156,7 @@ const appendTask = (elem, ind) => {
 
   document.querySelector(`.del-icon-${ind}`).onclick = () => {
     delTask(ind);
-    appendDelTask(ind);
+    window.location.reload();
   };
 };
 
@@ -242,10 +236,11 @@ const appendEditTask = index => {
 
       delIcon.onclick = () => {
         delTask(index);
-        appendDelTask(index);
+        window.location.reload();
       };
     }
   });
+  window.location.reload();
 };
 
 form.addEventListener('submit', e => {
@@ -309,13 +304,14 @@ const toggleLocalStore = (ind, state) => {
 const completeTask = () => {
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
   checkboxes.forEach(box => {
-    box.onclick = (e) => {
+    box.onclick = e => {
       const parent = box.parentNode;
-      const ind = +e.target.dataset.check;
+      const ind = e.target.dataset.check;
+
       const lineCancel = document.querySelector(`span[data-check="${ind}"]`);
 
       if (e.target.checked === true) {
-        completedState(parent.parentNode, ind);
+        completedState(parent.parentNode, lineCancel);
         toggleLocalStore(ind, true);
       } else {
         uncompletedState(parent.parentNode, lineCancel);
