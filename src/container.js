@@ -7,7 +7,7 @@ const addItems = ({
   date,
   time,
   priority,
-  note
+  note,
 }) => {
   collector.push({
     project,
@@ -17,10 +17,8 @@ const addItems = ({
     time,
     priority,
     note,
-    completed: false
+    completed: false,
   });
-  return console.log('collector', collector);
-  ;
 };
 
 export { addItems, collector };

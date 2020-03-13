@@ -1,7 +1,7 @@
-import { retrieveTasks } from "./storage";
+import { retrieveTasks } from './storage';
 
 const editTaskForm = (ind) => {
-  const form = document.querySelector(".form");      
+  const form = document.querySelector('.form');
   const formElems = form.elements;
   const task = retrieveTasks()[ind];
   formElems.newProj.value = task.project;
@@ -17,13 +17,13 @@ const editTaskForm = (ind) => {
   formElems.notes.value = task.note;
   formElems[10].value = 'Edit Item';
   formElems[10].dataset.index = ind;
-  form.firstElementChild.textContent = "Edit Task"
-}
+  form.firstElementChild.textContent = 'Edit Task';
+};
 
 const editStorage = (ind, task) => {
-  let obj = retrieveTasks();
+  const obj = retrieveTasks();
   obj[ind] = task;
-  localStorage.setItem("taskList", JSON.stringify(obj));
-}
+  localStorage.setItem('taskList', JSON.stringify(obj));
+};
 
 export { editTaskForm, editStorage };
