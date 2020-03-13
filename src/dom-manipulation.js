@@ -105,7 +105,7 @@ const appendTask = (elem, ind) => {
   <div class="date-wrap">
   <p>Due: <span>${elem.date}</span>|<span>${elem.time}</span></p>
   <img src=${Edit} alt="edit" class="icon icon-${ind}"/>
-  <img src=${Del} alt="delete" class="del-icon del-icon-${ind}" data-icon=${ind}/>
+  <img src=${Del} alt="delete" class="del-icon del-icon-${ind}"/>
   </div>
   </div>
   `;
@@ -161,7 +161,10 @@ const appendTask = (elem, ind) => {
   };
 
   document.querySelector(`.del-icon-${ind}`).onclick = () => {
+    console.log(ind, 'storage');
+    
     delTask(ind);
+
   }
 };
 
@@ -239,7 +242,9 @@ const appendEditTask = index => {
       let delIcon = delIcons[index];
 
       delIcon.onclick = () => {
-        delTask(index);
+        console.log('works', index);
+        
+        // delTask(index);
       }
 
       break;
