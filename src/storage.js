@@ -27,22 +27,20 @@ const storageAvailable = (type) => {
 
 const saveTask = (task) => {
   if (storageAvailable("localStorage")) {
-    const taskObjs = { array: [] };
+    const taskObjs = [];
     if (localStorage.getItem("taskList")) {
-      console.log('works');
-      
       const storedTask = JSON.parse(localStorage.getItem("taskList"));
-      storedTask.array.push(task);
+      storedTask.push(task);
       localStorage.setItem("taskList", JSON.stringify(storedTask));
     } else {
-      taskObjs.array.push(task);
+      taskObjs.push(task);
       localStorage.setItem("taskList", JSON.stringify(taskObjs));
     }
   }
 }
 
 const retrieveTasks = () => {
-  if (storageAvailable("localStorage")) {
+  if (storageAvailable("localStorage") && localStorage.getItem("taskList")) {
     const savedTasks = JSON.parse(localStorage.getItem("taskList"));
     return savedTasks;
   }

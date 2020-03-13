@@ -45,17 +45,12 @@ body {
 }
 
 .wrapper {
+  min-width: 300px;
+  max-width: 900px;
   padding: 20px;
+  margin: auto;
 }
 
-/* .show-form {
-    position:absolute;
-    background-color:yellow;
-    height:100vw;
-    width: 100vw;
-    top:0;
-    z-index:10;
-} */
 
 .mouse-cursor-gradient span {
   position: relative;
@@ -99,6 +94,13 @@ body {
   overflow: hidden;
   margin: 10px auto;
   display: block;
+}
+
+.add-task {
+  font-size: 1.4em;
+  width: 200px;
+  height: 50px;
+  margin-bottom: 30px;
 }
 
 .mouse-cursor-gradient:hover, input[type="submit"]:hover {
@@ -224,9 +226,32 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.task-list {
+.accordion-list {
   perspective: 100vw;
   transform-style: preserve-3d;
+}
+
+.project-title {
+  width: calc(100% + 10px);
+  margin-left: -5px;
+  color: rgb(26, 1, 17);
+  background-color: royalblue;
+  font-size: 28px;
+  text-align: center;
+  height: 50px;
+  overflow: hidden;
+}
+
+.project-title > span {
+  display: block;
+  color: royalblue;
+  float: right;
+  margin-right: 20px;
+  margin-top: 4px;
+  font-size: 38px;
+  padding: 0px 4px;
+  height: 80%;
+  background-color: #fff;
 }
 
 @keyframes animate_blob_1 {
@@ -254,6 +279,9 @@ input[type="checkbox"] {
   transform: rotateX(-40deg) rotateY(0deg) rotate(0deg);
   transform-origin: center center;
   transition: all 0.7s ease-in-out;
+  background-color: rgba(252, 87, 101, 0.29);
+  border-top: 3px solid green;
+  color: gray;
 }
 
 .change:hover {

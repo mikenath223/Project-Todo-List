@@ -4,15 +4,31 @@ import Edit from "./assets/edit.png";
 import High from "./assets/high.png";
 import Medium from "./assets/medium.png";
 import Low from "./assets/low.png";
+import { editTaskForm, editStorage } from "./edit-task";
 
+const form = document.querySelector(".form");
 const showTaskForm = () => {
   const showBut = document.querySelector(".add-task");
   const modal = document.querySelector(".modal");
-  const form = document.querySelector(".form");
-  showBut.onclick = () => {
+  const icons = document.querySelectorAll(".icon");
+  const showForm = state => {
     modal.style.visibility = "visible";
     form.classList.add("translate");
+    if (state === "create") {
+      form.elements[10].value = "Create Task";
+      form.firstElementChild.textContent = "Create Task";
+    }
   };
+
+  showBut.onclick = () => showForm("create");
+
+  icons.forEach((e, ind) => {
+    e.onclick = () => {
+      showForm("edit");
+      editTaskForm(ind);
+    };
+  });
+
   document.querySelector(".close").onclick = () => {
     modal.style.visbility = "hidden";
     form.classList.remove("translate");
@@ -25,27 +41,30 @@ const showTaskForm = () => {
   };
 };
 
-const completedState = (parent, index, line) => {
-  parent.style.backgroundColor = "rgba(252, 87, 101, 0.29)";
-  parent.style.borderTop = "3px solid green";
-  parent.style.color = "gray";
-  line[index].style.width = "100%";
+const completedState = (parent, index) => {
+  const line = document.querySelectorAll(".list-item-before");
+  line.forEach(e => {
+    if (e.dataset.check === index) {
+      e.style.width = "100%";
+    }
+  });
   parent.classList.add("change");
 };
 
 const uncompletedState = (parent, index, line) => {
-  parent.style.backgroundColor = "rgb(241, 36, 53)";
-  parent.style.borderTop = "3px solid black";
-  parent.style.color = "#000";
-  line[index].style.width = "0";
+  line.forEach(e => {
+    if (e.dataset.check === index) {
+      e.style.width = "0";
+    }
+  });
   parent.classList.remove("change");
 };
 
 let projects = [];
-const appendProjects = stored => {
+const appendProjects = () => {
   const select = document.querySelector("#project");
-  if (stored) {
-    retrieveTasks().array.forEach(task => {
+  if (retrieveTasks()) {
+    retrieveTasks().forEach(task => {
       let proj = task.project;
       if (!projects.includes(proj)) {
         projects.push(proj);
@@ -59,6 +78,20 @@ const appendProjects = stored => {
   }
 };
 
+const checkPriority = (status) => {
+  let priority;
+  if (status === "urgent") {
+    priority = High;
+  }
+  else if (status === "important") {
+    priority = Medium;
+  }
+  else {
+    priority = Low;
+  }
+  return priority;
+}
+
 const appendTask = (elem, ind) => {
   const createElem = ele => {
     return document.createElement(ele);
@@ -67,24 +100,15 @@ const appendTask = (elem, ind) => {
 
   const newElem = createElem("div");
   newElem.classList.add("list-item");
-  let priority;
-  if (elem.priority === "urgent") {
-    priority = High;
-  } else if (elem.priority === "important") {
-    priority = Medium;
-  } else {
-    priority = Low;
-  }
-  // console.log(elem.priority);
-  // priority.forEach(e => {if (e.checked) {console.log(e.id)}})
-  // if (elem.priority === "")
+  newElem.dataset.index = ind;
+  let priority = checkPriority(elem.priority);
   newElem.innerHTML = `
-  <span class="list-item-before"></span>
-  <div class="task-item" data-index=${ind}>
+  <span class="list-item-before" data-check=${ind}></span>
+  <div class="task-item">
       <div>
       <img src=${priority} alt="priority" class="priority"/>
       </div>
-      <input type="checkbox">
+      <input type="checkbox" data-check=${ind}>
       <h2>${elem.title}</h2>
   </div>
   <div class="date-wrap">
@@ -100,7 +124,7 @@ const appendTask = (elem, ind) => {
     accordionList.dataset.project = `${elem.project}`;
     const projectTitle = createElem("p");
     projectTitle.classList.add("project-title");
-    projectTitle.innerHTML = `${elem.project} <span class"toggle">&plus;</span>`;
+    projectTitle.innerHTML = `${elem.project} <span>&plus;</span>`;
     parent.appendChild(accordionList);
     accordionList.append(projectTitle, newElem);
   };
@@ -129,44 +153,90 @@ const appendTask = (elem, ind) => {
   }
 
   if (elem.completed) {
-    completedState(
-      newElem,
-      ind,
-      document.querySelectorAll(".list-item-before")
-    );
-    document.querySelectorAll("input[type='checkbox")[ind].checked = true;
+    completedState(newElem, ind.toString());
+    const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+    checkBoxes.forEach(e => {
+      if (e.dataset.check === ind.toString()) {
+        e.checked = true;
+      }
+    });
   }
 };
 
 const appendStorage = () => {
-  if (retrieveTasks().array.length > 0) {
-    retrieveTasks().array.forEach((elem, ind) => appendTask(elem, ind));
+  if (retrieveTasks()) {
+    retrieveTasks().forEach((elem, ind) => appendTask(elem, ind));
   }
 };
 
 const displayTasks = () => {
-  const items = retrieveTasks().array;
+  const items = retrieveTasks();
   const task = items[items.length - 1];
   appendTask(task, items.length - 1);
 };
 
+const appendEditTask = (index) => {
+  const task = retrieveTasks()[index];
+  const formElems = form.elements;
+  let project =
+      formElems.newProj.value.length < 1
+        ? formElems.project.value
+        : formElems.newProj.value;
+  let status;
+  formElems.priority.forEach(e => {
+    if (e.checked) {
+      return (status = e.id);
+    }
+  });
+
+  const title = formElems.title.value;
+  const dueDate = formElems.dueDate.value;
+  const dueTime = formElems.dueTime.value;
+  task.project = project;
+  task.title = title;
+  task.description = formElems.description.value;
+  task.date = dueDate;
+  task.time = dueTime;
+  task.priority = status;
+  task.note = formElems.notes.value;
+
+  editStorage(index, task);
+
+  for (let el in formElems) {
+    if (formElems[el].value) formElems[el].value = '';
+  }
+
+  document.querySelector('.modal').style.visibility = "hidden";
+  form.classList.remove("translate");
+
+  const list = document.querySelectorAll('.list-item');
+  for (let el in list) {
+    if (list[el].dataset.index === index.toString()) {
+      let listChildren = list[el].children;
+      let parentFirstchild = listChildren[1];
+      let parentSecondchild = listChildren[2];
+      parentFirstchild.children[0].lastElementChild.src = checkPriority(status);
+      parentFirstchild.lastElementChild.textContent = title;
+      parentSecondchild.innerHTML = `Due: <span>${dueDate}</span>|<span>${dueTime}</span>`;
+      break;
+    }
+  }
+
+};
+
+
 const addTasks = () => {
-  var form = document.querySelector(".form");
   form.addEventListener("submit", e => {
+    const formSubmit = form.elements[10];
     e.preventDefault();
-    const arr = ["", "", "", "", "", "", ""];
+    if ((formSubmit.value = "Edit Item")) {
+      const submitInd = formSubmit.dataset.index;
+      return appendEditTask(submitInd);
+    }
     const formElems = form.elements;
-    const checked = () => {
-      document.querySelectorAll(".radio").forEach(elem => {
-        if (elem.checked) {
-          return elem.id;
-        }
-      });
-    };
     let status;
     formElems.priority.forEach(e => {
       if (e.checked) {
-        console.log(e.id);
         return (status = e.id);
       }
     });
@@ -174,23 +244,15 @@ const addTasks = () => {
       formElems.newProj.value.length < 1
         ? formElems.project.value
         : formElems.newProj.value;
-    arr[0] = project;
-    arr[1] = formElems.title.value;
-    arr[2] = formElems.description.value;
-    arr[3] = formElems.dueDate.value;
-    arr[4] = formElems.dueTime.value;
-    arr[5] = status;
-    arr[6] = formElems.notes.value;
     addItems({
-      project: arr[0],
-      title: arr[1],
-      description: arr[2],
-      date: arr[3],
-      time: arr[4],
-      priority: arr[5],
-      note: arr[6]
+      project: project,
+      title: formElems.title.value,
+      description: formElems.description.value,
+      date: formElems.dueDate.value,
+      time: formElems.dueTime.value,
+      priority: status,
+      note: formElems.notes.value
     });
-    console.log(collector);
     saveTask(collector[collector.length - 1]);
 
     appendProjects();
@@ -199,13 +261,13 @@ const addTasks = () => {
 };
 
 const toggleLocalStore = (ind, state) => {
-  const newTaskList = { array: [] };
-  const tasks = retrieveTasks().array;
+  const newTaskList = [];
+  const tasks = retrieveTasks();
   tasks.forEach((item, taskInd) => {
     if (+ind === taskInd) {
       item.completed = state;
     }
-    newTaskList.array.push(item);
+    newTaskList.push(item);
   });
   localStorage.setItem("taskList", JSON.stringify(newTaskList));
 };
@@ -215,10 +277,10 @@ const completeTask = () => {
   checkboxes.forEach(box => {
     box.onclick = () => {
       const parent = box.parentNode;
-      const ind = parent.dataset.index;
+      const ind = parent.parentNode.dataset.index;
       const lineCancel = document.querySelectorAll(".list-item-before");
       if (box.checked == true) {
-        completedState(parent.parentNode, ind, lineCancel);
+        completedState(parent.parentNode, ind);
         toggleLocalStore(ind, true);
       } else {
         uncompletedState(parent.parentNode, ind, lineCancel);

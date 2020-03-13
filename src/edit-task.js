@@ -1,19 +1,29 @@
 import { retrieveTasks } from "./storage";
 
-const editTask = () => {
-  const edit = document.querySelectorAll('.icon');
-  const form = document.querySelector('.form');
-  edit.forEach((e, ind) => {
-    const task = retrieveTasks().array[ind];
-      e.addEventListener('click', () => {
-        form.elements.forEach(e => {
-          // e.value = ;
-        })
-      })
-  })
-  const task = retrieveTasks().array[index]
-  console.log(task)
+const editTaskForm = (ind) => {
+  const form = document.querySelector(".form");      
+  const formElems = form.elements;
+  const task = retrieveTasks()[ind];
+  formElems.newProj.value = task.project;
+  formElems.title.value = task.title;
+  formElems.description.value = task.description;
+  formElems.dueDate.value = task.date;
+  formElems.dueTime.value = task.time;
+  formElems.priority.forEach(e => {
+    if (e.id === task.priority) {
+      e.checked = true;
+    }
+  });
+  formElems.notes.value = task.note;
+  formElems[10].value = 'Edit Item';
+  formElems[10].dataset.index = ind;
+  form.firstElementChild.textContent = "Edit Task"
+}
 
-};
+const editStorage = (ind, task) => {
+  let obj = retrieveTasks();
+  obj[ind] = task;
+  localStorage.setItem("taskList", JSON.stringify(obj));
+}
 
-export default editTask
+export { editTaskForm, editStorage };
