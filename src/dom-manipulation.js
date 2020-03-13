@@ -338,7 +338,6 @@ const toggleProjectTasks = () => {
 
 };
 
-;
 export {
     appendStorage,
     appendProjects,
