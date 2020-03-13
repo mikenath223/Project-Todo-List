@@ -31,7 +31,7 @@
             <div class="choose-project">
               <label for="project">Choose Existing Project</label>
               <select id="project" name="project">
-                <option value="">Default</option>
+                <option value="Default Project">Default</option>
               </select>
               <span>or</span>
               <div>
@@ -41,7 +41,7 @@
             </div>
             <div>
               <label for="title">Task Title</label>
-              <input type="text" name="title" id="title" maxlength="20">
+              <input type="text" name="title" id="title" maxlength="20" required aria-required="true">
             </div>
             <div>
               <label for="title">Task Description</label>
@@ -49,11 +49,11 @@
             </div>
             <div>
               <label for="dueDate">Task Due-Date</label>
-              <input type="date" name="dueDate" id="dueDate" class="border">
+              <input type="date" name="dueDate" id="dueDate" class="border" required aria-required="true">
             </div>
             <div>
               <label for="dueTime">Task Due-Time</label>
-              <input type="time" name="dueTime" id="dueTime" class="border">
+              <input type="time" name="dueTime" id="dueTime" class="border" required aria-required="true">
             </div>
             <div>
               <p>Task Priority</p>
