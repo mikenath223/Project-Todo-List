@@ -27,7 +27,7 @@
   </p>
 </p>
 
-This project involves dynamically generating page contents with javascript using module design pattern afforded by webpack module bundler.
+This project involves creating a todo-list JavaScript app with functionalities for creating, editing, completing and deleting tasks.
 
 ## Screenshot
 
