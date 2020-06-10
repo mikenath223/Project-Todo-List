@@ -1,4 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
+  [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -27,7 +27,8 @@
   </p>
 </p>
 
-This project involves dynamically generating page contents with javascript using module design pattern afforded by webpack module bundler.
+This project involves creating a Single View Todo App where users can add, edit and delete tasks. Tasks get grouped by Projects and every tasks contains details like: duetime, date, description, notes and urgency.
+
 
 ## Screenshot
 
@@ -52,6 +53,7 @@ This project was built with these tools:
 - HTML
 - CSS
 
+
 # Authors
 
 **Michgolden Ukeje**
@@ -64,9 +66,9 @@ This project was built with these tools:
 
 **Alejandro Andres**
 
-- Github: [@mikenath223](https://github.com/mikenath223)
-- Twitter: [@Michgolden_Nath](https://twitter.com/MichgoldenU)
-- Linkedin: [Ukeje Michgolden](https://https://www.linkedin.com/in/michgoldenukeje/)
+- Github: [@alexawesomecode](https://github.com/mikenath223)
+- Twitter: [@alexcode0](https://twitter.com/MichgoldenU)
+- Linkedin: [Alejandro Andres](https://www.linkedin.com/in/alejandro-andres-126592191/)
 
 # License
 
