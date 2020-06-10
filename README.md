@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://www.microverse.org/">
-    <img src="src/microverse.png" alt="Logo" width="80" height="80">
+    <img src="src/assets/microverse.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">
@@ -29,28 +29,28 @@
 
 This project involves dynamically generating page contents with javascript using module design pattern afforded by webpack module bundler.
 
-## Snapshot
+## Screenshot
 
-<img src="src/restaurant-snapshot.gif" alt="screenshot" width="800" height="500">
+<img src="src/assets/screenshot.png" alt="screenshot" width="800" height="500">
 
-# Validations
+## Validations
 
--ESLINT
+- ESLINT
 
 # Get Started
 
--Download or clone this [repo here](https://github.com/mikenath223/Project-Todo-List).
--Install webpack and project dependencies.
--Run `npx webpack --mode=development`.
--Open the `index.html` file.
+- Download or clone this [repo here](https://github.com/mikenath223/Project-Todo-List).
+- Install webpack and project dependencies.
+- Run `npx webpack --mode=development`.
+- Open the `index.html` file.
 
 # Built With
 
 This project was built with these tools:
 
-- JAVASCRIPT
+- JavaScript
 - HTML
-- CSS3
+- CSS
 
 # Authors
 
